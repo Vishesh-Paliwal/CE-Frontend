@@ -60,16 +60,16 @@ function App() {
       <div className='w-9/12 h-full bg-green-400'>
         <div className='flex justify-between'>
         <select
-  className='rounded p-3 m-4 bg-black text-white'
-  value={selectedLang}
-  onChange={handleLangChange}
->
-  {runtimes.map((runtime) => (
-    <option key={`${runtime.language}-${runtime.version}`} value={runtime.language}>
-      {runtime.language}
-    </option>
-  ))}
-</select>
+          className='rounded p-3 m-4 bg-black text-white'
+          value={selectedLang}
+          onChange={handleLangChange}
+        >
+          {runtimes.map((runtime) => (
+            <option key={`${runtime.language}-${runtime.version}`} value={runtime.language}>
+              {runtime.language}
+            </option>
+          ))}
+        </select>
 
 
           <button
