@@ -31,9 +31,15 @@ function App() {
         </div>
 
         {/* Right-Portion */}
-        <div className='w-3/12 h-full bg-blue-300'>
-          <div className='h-2/5 bg-slate-50'></div>
-          <div className='h-3/5 bg-slate-400'></div>
+        <div className='w-3/12 h-full bg-slate-600'>
+          <div className='h-2/5 bg-slate-600'>
+              <h2 className='p-4'>Input</h2>
+              <textarea className='h-4/5 w-full ml-4 rounded-lg p-4' placeholder='Enter the input' name="input" id="2"></textarea>
+          </div>
+          <div className='h-3/5 bg-slate-600 border-t-2 border-slate-800 rounded'>
+            <h2 className='p-4'>Output</h2>
+            <textarea className='h-4/5 w-full ml-4 rounded-lg p-4' placeholder='Output will show here' name="input" id="2"></textarea>
+          </div>
         </div>
       </div>
   )
