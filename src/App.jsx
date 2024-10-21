@@ -5,17 +5,20 @@ import axios from 'axios';
 
 function App() {
   const [runtimes, setRuntimes] = useState([]);
-  const [selectedLang, setSelectedLang] = useState('');
+  const [selectedLang, setSelectedLang] = useState('javascript');
   const [code, setCode] = useState('');
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
 
+  // Update the API URL to use the deployed backend
+  const API_BASE_URL = 'https://ce-backend-fhlh.onrender.com';
+
   useEffect(() => {
     const fetchRuntimes = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/runtimes');
+        const response = await axios.get(`${API_BASE_URL}/runtimes`);
         setRuntimes(response.data);
-
+        
         if (response.data.length > 0) {
           setSelectedLang(response.data[0].language);
         }
@@ -35,36 +38,38 @@ function App() {
   const handleRunCode = async () => {
     try {
       const selectedRuntime = runtimes.find(runtime => runtime.language === selectedLang);
-
-      const response = await axios.post('http://localhost:5000/execute', {
+      
+      const response = await axios.post(`${API_BASE_URL}/execute`, {
         language: selectedRuntime.language,
         version: selectedRuntime.version,
         code,
-        stdin: input 
+        stdin: input
       });
-
-      setOutput(response.data.output || 'No output received');
+  
+      const output = response.data.output || 'No output received';
+      setOutput(output);
     } catch (error) {
       setOutput(`Error: ${error.response?.data?.message || error.message || 'Unknown error'}`);
     }
   };
+  
 
   return (
     <div className='flex h-screen w-screen bg-black'>
       {/* Left-Portion */}
       <div className='w-9/12 h-full bg-green-400'>
         <div className='flex justify-between'>
-          <select
-            className='rounded p-3 m-4 bg-black text-white'
-            value={selectedLang}
-            onChange={handleLangChange}
-          >
-            {runtimes.map((runtime) => (
-              <option key={`${runtime.language}-${runtime.version}`} value={runtime.language}>
-                {runtime.language}
-              </option>
-            ))}
-          </select>
+        <select
+          className='rounded p-3 m-4 bg-black text-white'
+          value={selectedLang}
+          onChange={handleLangChange}
+        >
+          {runtimes.map((runtime) => (
+            <option key={`${runtime.language}-${runtime.version}`} value={runtime.language}>
+              {runtime.language}
+            </option>
+          ))}
+        </select>
 
           <button
             className='flex items-center bg-green-500 text-white p-2 m-4 rounded'
